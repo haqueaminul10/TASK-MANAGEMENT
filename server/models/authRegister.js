@@ -19,6 +19,6 @@ db.query(createTableQuery, (err, results) => {
       console.error('Error creating the table:', err.message);
     } 
     //  else {
-    //    console.log('Table "Register" created successfully');
+    //    console.log('Table "users" created successfully');
     //  }
   });

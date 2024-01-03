@@ -4,13 +4,18 @@ const jwt =require(`jsonwebtoken`);
 exports.requireSignIn =async(req,res,next)=>{
     try{
         const token =req.headers.authorization;
+        
+        
         if(!token){
             return res.status(401).send({message:"unauthorize"})
         }
+        const splitToken = token.split(" ")[1];
+        console.log(splitToken)
         const decode = jwt.verify(
-            token,
+            splitToken,
             process.env.jwt_secret
           );
+          
           //console.log("decode",decode.role)
           req.user=decode;
         //console.log("req.user",req.user)

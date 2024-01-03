@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 //IMPORT COMPONENT
 import Layout from "../Layouts/Layout";
 import InputField from "../Layouts/InputField";
 function AddTask() {
+  const navigate = useNavigate();
   const inputData = { description: "", details: "" };
   const [formData, setFormData] = useState(inputData);
+  const parseAuth = JSON.parse(localStorage.getItem("auth"));
+  //console.log(parseAuth);
 
   //HANGLE CHANGE FUNCTION
   const handleChange = (e) => {
@@ -16,9 +20,30 @@ function AddTask() {
     });
   };
   // HANDLE SUBMIT FUNCTION
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const response = await fetch(`http://localhost:7000/api/addtask`, {
+        method: `POST`,
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${parseAuth.token}`,
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (response.status === 200) {
+        alert(data.message);
+        navigate(`/task`);
+      } else if (response.status === 500) {
+        alert(data.message);
+      } else {
+        alert(`Unexpected error`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert(`Can't create task`);
+    }
   };
   return (
     <>

@@ -17,8 +17,13 @@ function Home() {
               className="border-2 p-1 m-2"
               onClick={() => navigate(`/addtask`)}
             >
-              {" "}
               Add Task
+            </button>
+            <button
+              className="border-2 p-1 m-2"
+              onClick={() => navigate(`/task`)}
+            >
+              Task List
             </button>
           </div>
         ) : (

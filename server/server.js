@@ -24,6 +24,8 @@ const db =require("./config/dbConnection.js")
 /////////////DATABASE MODELS////////////////
 //AUTH MODEL
 const authModel =require(`./models/authRegister.js`)
+//TASK MODEL 
+const taskModel = require(`./models/task.js`)
 
 
 ///////////////// REST API /////////////////
